@@ -1,17 +1,21 @@
 <script setup lang="ts">
 import { defineComponent } from "vue";
-import Timeline from "./components/Timeline.vue";
+import TimeLine from "./components/TimeLine.vue";
 
 defineComponent({
   name: "App",
   components: {
-    Timeline,
+    TimeLine,
   },
 });
 </script>
 
 <template>
-  <Timeline />
+  <section class="section">
+    <div class="container">
+      <TimeLine />
+    </div>
+  </section>
 </template>
 
 <style>
