@@ -1,3 +1,13 @@
+<template>
+  <nav class="is-primary panel">
+    <span class="panel-tabs">
+      <a v-for="period in periods" :key="period">
+        {{ period }}
+      </a>
+    </span>
+  </nav>
+</template>
+
 <script setup lang="ts">
 import { defineComponent, ref } from "vue";
 
@@ -9,15 +19,5 @@ defineComponent({
   name: "TimeLine",
 });
 </script>
-
-<template>
-  <nav class="is-primary panel">
-    <span class="panel-tabs">
-      <a v-for="period in periods" :key="period">
-        {{ period }}
-      </a>
-    </span>
-  </nav>
-</template>
 
 <style scoped></style>
