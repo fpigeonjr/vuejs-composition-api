@@ -3,16 +3,28 @@ import { defineComponent, ref, computed } from "vue"
 import moment from "moment"
 import TimeLinePost from "./TimeLinePost.vue"
 import { useStore } from "../store"
-import { today, thisWeek, thisMonth, Post } from "../mocks"
+import { Post } from "../mocks"
+import { today, thisWeek, thisMonth } from "../mocks"
 
 type Period = "Today" | "This Week" | "This Month"
 
-function delay() {
-  return new Promise((resolve) => setTimeout(resolve, 2000))
+const periods: Period[] = ["Today", "This Week", "This Month"]
+const currentPeriod = ref<Period>("Today")
+const store = useStore()
+if (!store.getState().posts.loaded) {
+  await store.fetchPosts()
 }
-
-const posts = computed(() =>
-  allPosts.filter((post) => {
+const allPosts: Post[] = store
+  .getState()
+  .posts.ids.reduce<Post[]>((acc, id) => {
+    const thePost = store.getState().posts.all.get(id)
+    if (!thePost) {
+      throw Error("This post was not found")
+    }
+    return acc.concat(thePost)
+  }, [])
+const posts = computed(() => {
+  return allPosts.filter((post) => {
     if (currentPeriod.value === "Today") {
       return post.created.isAfter(moment().subtract(1, "day"))
     }
@@ -24,20 +36,7 @@ const posts = computed(() =>
     }
     return false
   })
-)
-await delay()
-const periods = ["Today", "This Week", "This Month"]
-const currentPeriod = ref<Period>("Today")
-const store = useStore()
-const allPosts: Post[] = store
-  .getState()
-  .posts.ids.reduce<Post[]>((acc, id) => {
-    const thePost = store.getState().posts.all.get(id)
-    if (!thePost) {
-      throw Error("this posts was not found")
-    }
-    return acc.concat(thePost)
-  }, [])
+})
 const setPeriod = (period: Period) => {
   currentPeriod.value = period
 }
