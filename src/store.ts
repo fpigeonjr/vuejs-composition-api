@@ -1,6 +1,6 @@
 import { reactive, readonly } from "vue"
 import axios from "axios"
-import { type Post, today, thisWeek, thisMonth } from "./mocks"
+import type { Post } from "./mocks"
 // ref => 1, 'asf', boolean
 //reactive => {}
 
@@ -18,6 +18,7 @@ interface PostsState {
   all: Map<string, Post> // {1 => {}}
   loaded: boolean
 }
+
 class Store {
   private state: State
 
