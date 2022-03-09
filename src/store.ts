@@ -1,11 +1,22 @@
 import Vue from "vue"
+import type { Post } from "./mocks"
 // ref => 1, 'asf', boolean
 //reactive => {}
 
 interface State {
-  test: string
+  posts: PostsState
 }
 
+//store.state.posts.ids
+//store.state.posts.all[1]
+
+interface PostsState {
+  // o(n)
+  ids: string[] // [1, 2, 3]
+  // o(1)
+  all: Map<string, Post> // {1 => {}}
+  loaded: boolean
+}
 class Store {
   private state: State
 
@@ -16,14 +27,14 @@ class Store {
   getState() {
     return Vue.readonly(this.state)
   }
-
-  updateTest(test: string) {
-    this.state.test = test
-  }
 }
 
 const store = new Store({
-  test: "test"
+  posts: {
+    all: new Map(),
+    ids: [],
+    loaded: false
+  }
 })
 
-store.getState().test
+store.getState().posts
