@@ -4,25 +4,14 @@ import TimeLine from "./components/TimeLine.vue"
 import TheSpinner from "./components/TheSpinner.vue"
 
 defineComponent({
-  name: "App",
-  components: {
-    TimeLine,
-    TheSpinner
-  }
+  name: "App"
 })
 </script>
 
 <template>
   <section class="section">
     <div class="container">
-      <Suspense>
-        <template #default>
-          <TimeLine />
-        </template>
-        <template #fallback>
-          <TheSpinner />
-        </template>
-      </Suspense>
+      <RouterView> </RouterView>
     </div>
   </section>
 </template>
