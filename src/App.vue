@@ -1,17 +1,20 @@
 <script setup lang="ts">
 import { defineComponent } from "vue"
-import TimeLine from "./components/TimeLine.vue"
-import TheSpinner from "./components/TheSpinner.vue"
+import NavBar from "./components/NavBar.vue"
 
 defineComponent({
-  name: "App"
+  name: "App",
+  components: {
+    NavBar
+  }
 })
 </script>
 
 <template>
   <section class="section">
     <div class="container">
-      <RouterView> </RouterView>
+      <NavBar />
+      <RouterView />
     </div>
   </section>
 </template>
