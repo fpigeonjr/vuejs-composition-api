@@ -3,8 +3,7 @@ import { defineComponent, ref, computed } from "vue"
 import moment from "moment"
 import TimeLinePost from "./TimeLinePost.vue"
 import { useStore } from "../store"
-import { Post } from "../mocks"
-import { today, thisWeek, thisMonth } from "../mocks"
+import type { Post } from "../mocks"
 
 type Period = "Today" | "This Week" | "This Month"
 
